@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useBooking } from '../../context/BookingContext';
+import { appointmentsAPI } from '../../services/bookingService';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import { formatPrice } from '../../utils/formatters';
 
@@ -15,24 +16,15 @@ const BookingConfirmation = ({ onComplete }) => {
 
   const createAppointment = async () => {
     try {
-      // TODO: Replace with actual API call
-      // const response = await appointmentsAPI.create({
-      //   serviceId: bookingData.service.id,
-      //   resourceId: bookingData.resource.id,
-      //   date: bookingData.date,
-      //   time: bookingData.time,
-      //   customer: bookingData.customer,
-      // });
-      // setConfirmation(response.data);
-
-      // Mock response for development
-      setTimeout(() => {
-        setConfirmation({
-          reference: `APT-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-          ...bookingData,
-        });
-        setLoading(false);
-      }, 1500);
+      const response = await appointmentsAPI.create({
+        customerName: bookingData.customer.name,
+        customerEmail: bookingData.customer.email,
+        service: bookingData.service.name,
+        date: `${bookingData.date}T${bookingData.time}`,
+        notes: bookingData.notes || '',
+      });
+      setConfirmation(response.data);
+      setLoading(false);
     } catch (err) {
       setError('Error al crear la cita. Por favor intenta nuevamente.');
       setLoading(false);
