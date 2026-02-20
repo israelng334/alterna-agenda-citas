@@ -69,5 +69,5 @@ npm run dev
 - **Pruebas**: agregar unit tests para lógica de solapamiento y reglas críticas.
 
 ---
-**Autores:** Grupo 4 — Israel y equipo
+**Autores:** Grupo 4 — Israel de la Cruz y Jose Robles grupo 4
 **Fecha:** Febrero 2026
